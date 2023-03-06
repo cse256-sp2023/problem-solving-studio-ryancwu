@@ -1,7 +1,36 @@
 // ---- Define your dialogs  and panels here ----
+new_perms_out = define_new_effective_permissions("new_perms", true, null);
+
+$('#sidepanel').append(new_perms_out)
+$('#new_perms').attr('filepath', '/C')
+$('#new_perms').attr('username', 'administrator')
+// $('#new_perms').attr('username', 'selected_user')
+
+selected_user_out = define_new_user_select_field("new_user", "select user", function(selected_user){
+    $('#new_perms').attr('filepath', '/C/presentation_documents/important_file.txt')
+    $('#new_perms').attr('username', selected_user)
+})
+$('#sidepanel').append(selected_user_out)
 
 
+dialogue_out = define_new_dialog("new_dialogue", "My Dialogue")
+$('.perm_info').click(function(){
 
+    // stuff that should happen on click goes here
+
+    console.log($('#new_perms').attr('filepath'))
+    console.log($('#new_perms').attr('username'))
+    console.log($( this ).attr('permission_name'))
+    dialogue_out.dialog('open')
+    if( allow_user_action(path_to_file[$('#new_perms').attr('filepath')], 
+    all_users[$('#new_perms').attr('username')], 
+    p)) {
+        // This action is allowed. Find the checkbox cell and put a checkbox there.
+        $('#new_dialogue').empty();
+        $('#new_dialogue').append(get_explanation_text($( this ).attr('permission_name')));
+    }
+
+})
 // ---- Display file structure ----
 
 // (recursively) makes and returns an html element (wrapped in a jquery object) for a given file object
